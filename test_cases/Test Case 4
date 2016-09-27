@@ -1,0 +1,17 @@
+
+Test ID: 4
+
+Requirement Being Tested:
+updating the comments section when given a POST request
+
+Component Being Tested:
+update_comments(request)
+
+Test inputs:
+A Django request object with a POST command for a comment object
+
+Expected Outcomes:
+The displayed view should contain the new comment object at the bottom of the screen.
+
+Path to File:
+apps/comments/views.py

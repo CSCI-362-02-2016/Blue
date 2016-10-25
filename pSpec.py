@@ -6,7 +6,7 @@ from prototypeTest import prototypeTest
 def driver( args ):
     
     testObjects = [
-        prototypeTest()
+        prototypeTest(),
         ]
     
     file = open("testNames.txt", "r")
@@ -35,6 +35,7 @@ def driver( args ):
             results += tempResults[0]
             details += tempResults[1]
     else:
+        tests[args[0]].setID(0)
         tempResults = tests[args[0]].runTest(args[1:])
         results += tempResults[0]
         details += tempResults[1]

@@ -9,14 +9,14 @@ class prototypeTest(Test):
         self.requirement = "Functionality of Driver"
         self.component = "prototypeTest"
         self.function = "runTest"
-        self.expected = "True"
+        self.expected = 1
         
     def func( self, args ):
-        return args
+        return eval(args[0]) == self.expected
 
     def getArgList( self ):
         argList = [
-            True,
-            False
+            '1',
+            '2'
             ]
         return argList

@@ -33,8 +33,8 @@ class Test:
         passFail = self.func( args )
         self.details
         self.details[self.PASS_FAIL_INDEX] = ('PASS' if passFail else 'FAIL')
-        self.details[self.EXPECTED_INDEX] = self.expected
-        self.details[self.ARGUMENTS_INDEX] = str( args )
+        self.details[self.EXPECTED_INDEX] = str( self.expected )
+        self.details[self.ARGUMENTS_INDEX] = ", ".join(args)
         self.details[self.FUNCTION_INDEX] = self.function
         self.details[self.COMPONENT_INDEX] = self.component
         self.details[self.REQUIREMENT_INDEX] = self.requirement

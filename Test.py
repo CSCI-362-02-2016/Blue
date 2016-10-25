@@ -1,15 +1,28 @@
 class Test:
 
+    PASS_FAIL_INDEX = 26
+    ARGUMENTS_INDEX = 18
+    ID_INDEX = 2
+
     def __init__( self, details ):
         self.details = details
         self.report = ""
         
-    def details( self ):
+    def getDetails( self ):
         return self.details
 
     def runTest( self, args ):
-        self.report += str( self.getID() ) + "\n" + self.details
-        return [('.' if self.func( args ) else 'F'), self.report]
+        
+        passFail = self.func( args )
+        
+        self.details[self.PASS_FAIL_INDEX] = ('PASS' if passFail else 'FAIL')
+        self.details[self.ARGUMENTS_INDEX] = str( args )
+        self.details[self.ID_INDEX] = str( self.getID() )
+        htmlFormat = "<div>===================================\n\n</div>"
+        for i in range(0, len(self.details), 4):
+            htmlFormat +="<div>" + " ".join(self.details[i:i+4]) + "</div>"
+        htmlFormat += "<div>===================================\n\n</div>"
+        return [('.' if passFail else 'F'), htmlFormat]
 
     def runTests( self ):
         pass

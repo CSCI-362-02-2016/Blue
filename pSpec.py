@@ -24,8 +24,8 @@ def driver( args ):
     for i in range(len(fileArray)):
         tests[fileArray[i]] = testObjects[i]
     
-    results = ""
-    details = ""
+    results = "<head><div>"
+    details = "<body>"
     
     if len( args ) == 0:
         for key, value in tests.items():
@@ -35,8 +35,12 @@ def driver( args ):
             results += tempResults[0]
             details += tempResults[1]
     else:
-        results, details = tests[args[0]].runTest(args[1:])
+        tempResults = tests[args[0]].runTest(args[1:])
+        results += tempResults[0]
+        details += tempResults[1]
 
+    results += "\n</div></head>"
+    details += "</body>"
     file.write(results + "\n")
     file.write(details + "\n")
     file.close()

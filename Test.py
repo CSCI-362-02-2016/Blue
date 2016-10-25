@@ -11,10 +11,12 @@ class Test:
     def getDetails( self ):
         return self.details
 
+    def getArgList( self ):
+        pass
+
     def runTest( self, args ):
         
         passFail = self.func( args )
-        
         self.details[self.PASS_FAIL_INDEX] = ('PASS' if passFail else 'FAIL')
         self.details[self.ARGUMENTS_INDEX] = str( args )
         self.details[self.ID_INDEX] = str( self.getID() )
@@ -25,7 +27,15 @@ class Test:
         return [('.' if passFail else 'F'), htmlFormat]
 
     def runTests( self ):
-        pass
+        totalResult = ""
+        totalDetail = ""
+        argList = self.getArgList()
+        for args in argList:
+            test = self.runTest(args)
+            totalResult += test[0]
+            totalDetail += test[1]
+            self.setID(self.getID() + 1)
+        return [totalResult, totalDetail]
 
     def func( args ):
         pass

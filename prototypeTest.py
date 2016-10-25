@@ -18,16 +18,9 @@ class prototypeTest(Test):
     def func( self, args ):
         return args
 
-    def runTests( self ):
-        totalResult = ""
-        totalDetail = ""
+    def getArgList( self ):
         argList = [
             True,
             False
             ]
-        for args in argList:
-            test = self.runTest(args)
-            totalResult += test[0]
-            totalDetail += test[1]
-            self.setID(self.getID() + 1)
-        return [totalResult, totalDetail]
+        return argList

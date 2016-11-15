@@ -1,3 +1,5 @@
+from testCases import *
+
 class Test:
 
     details = [
@@ -21,19 +23,40 @@ class Test:
 
     def __init__( self ):
         self.report = ""
+        self.setDetails()
+        self.getParamList()
         
     def getDetails( self ):
         return self.details
 
-    def getArgList( self ):
-        pass
+    def setDetails( self ):
+        file = open("../testCases/" + self.name + ".txt")
+        fileStr = file.read()
+        file.close()
+        fileArray = fileStr.split("\n")
+        self.requirement = fileArray[1].split(":")[1].strip()
+        self.component = fileArray[3].split(":")[1].strip()
+        self.function = fileArray[5].split(":")[1].strip()
 
-    def runTest( self, args ):
+    def getParamList( self ):
+        file = open("../testCases/" + self.name + ".txt")
+        fileStr = file.read()
+        file.close()
+        fileArray = fileStr.split("\n")
+        self.paramList = []
+        self.expectedList = []
+        for i in range(len(fileArray) - 1):
+            if fileArray[i][0] != "=":
+                splt = fileArray[i].split("|")                    
+                self.paramList += [splt[1:-1]]
+                self.expectedList += [splt[-1]]
+
+    def runTest( self, args, expected ):
         
-        passFail = self.func( args )
+        passFail = self.func( args, expected )
         self.details
         self.details[self.PASS_FAIL_INDEX] = ('PASS' if passFail else 'FAIL')
-        self.details[self.EXPECTED_INDEX] = str( self.expected )
+        self.details[self.EXPECTED_INDEX] = str( expected )
         self.details[self.ARGUMENTS_INDEX] = ", ".join(args)
         self.details[self.FUNCTION_INDEX] = self.function
         self.details[self.COMPONENT_INDEX] = self.component
@@ -48,15 +71,14 @@ class Test:
     def runTests( self ):
         totalResult = ""
         totalDetail = ""
-        argList = self.getArgList()
-        for args in argList:
-            test = self.runTest(args)
+        for i in range(len(self.paramList)):
+            test = self.runTest(self.paramList[i], self.expectedList[i])
             totalResult += test[0]
             totalDetail += test[1]
             self.setID(self.getID() + 1)
         return [totalResult, totalDetail]
 
-    def func( args ):
+    def func( self, args, expected ):
         pass
 
     def setID( self, id ):

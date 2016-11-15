@@ -1,0 +1,12 @@
+================================================
+= Requirement: Gives correct error message
+================================================
+= Component: Cleanup
+================================================
+= Function: get_docker_hosts
+================================================
+= Format:
+=
+= Test No. | Expected
+================================================
+1. |DOCKER_HOSTS ENV variable missing

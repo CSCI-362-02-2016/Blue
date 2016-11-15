@@ -1,0 +1,12 @@
+================================================
+= Requirement: Checks if the cd gets the correct root directory
+================================================
+= Component: deploy
+================================================
+= Function: cd_to_project_root
+================================================
+= Format:
+=
+= Test No. | Arg1 | Arg2 | Expected
+================================================
+1. |"cd to " + str(os.path.dirname(os.path.dirname(__file__))) + "/testCases/unisubs"

@@ -1,0 +1,15 @@
+================================================
+= Requirement: Testing the log functions ability to handle multiple string args
+================================================
+= Component: Deploy
+================================================
+= Function: log
+================================================
+= Format:
+=
+= Test No. | Arg1 | Arg2 | Expected
+================================================
+1. |My {} friend {}|good,Sam||* My good friend Sam
+2. |{} divided by {} is {}|10,2,5||* 10 divided by 2 is 5
+3. |This should have two spaces{}{}| , ||* This should have two spaces  
+4. |This should have nothing{}{}|,||* This should have nothing

@@ -1,1 +1,7 @@
-prototype
+log_time
+get_docker_hosts
+cd_to_project_root
+log
+multi_arg_log
+log_nostar
+multi_arg_log_nostar

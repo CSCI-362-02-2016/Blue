@@ -1,5 +1,5 @@
 ================================================
-= Requirement: log_time gives correct time in seconds
+= Requirement: log_time handles fractions of seconds correctly
 ================================================
 = Component: LoggingTimer
 ================================================

@@ -1,5 +1,5 @@
 ================================================
-= Requirement: Checks if the cd gets the correct root directory
+= Requirement: Deployment must be able to switch to the correct directory
 ================================================
 = Component: deploy
 ================================================

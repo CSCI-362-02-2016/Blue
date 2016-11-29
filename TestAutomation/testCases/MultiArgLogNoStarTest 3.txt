@@ -1,5 +1,5 @@
 ================================================
-= Requirement: The log no_star should display nothing when given no arguments
+= Requirement: log_nostar should be able to handle multiple blanks as arguments, and display correctly
 ================================================
 = Component: Deploy
 ================================================
@@ -7,6 +7,6 @@
 ================================================
 = Format:
 =
-= Test No. | Arg1 | Arg2 | Arg3 | Expected
-================================================
-1. ||||
+= Test No. | Arg1 | Arg2 | Expected
+================================================ 
+3. |This should have nothing{}{}|,||This should have nothing

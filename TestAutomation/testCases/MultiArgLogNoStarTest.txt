@@ -1,5 +1,5 @@
 ================================================
-= Requirement: Testing the log_nostar functions ability to handle multiple string args
+= Requirement: log_nostar should be able to handle multiple strings as arguments
 ================================================
 = Component: Deploy
 ================================================
@@ -10,5 +10,3 @@
 = Test No. | Arg1 | Arg2 | Expected
 ================================================
 1. |My {} friend {}|bad,Tony||My bad friend Tony
-2. |This should have two spaces{}{}| , ||This should have two spaces  
-3. |This should have nothing{}{}|,||This should have nothing

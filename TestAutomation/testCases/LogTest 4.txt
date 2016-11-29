@@ -1,12 +1,14 @@
 ================================================
-= Requirement: log_time gives correct time in seconds
+= Requirement: log should be able to handle a string as an argument
 ================================================
-= Component: LoggingTimer
+= Component: Deploy
 ================================================
-= Function: log_time
+= Function: log
+================================================
+= Script: LogTest()
 ================================================
 = Format:
 =
-= Test No. | Arg1 | Expected
+= Test No. | Arg1 | Arg2 | Arg3 | Expected
 ================================================
-1. | 0.1 |* Time is: 0:0.1s
+4. |My friend {}|Sam||* My friend Sam

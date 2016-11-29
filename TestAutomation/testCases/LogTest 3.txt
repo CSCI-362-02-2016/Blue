@@ -1,12 +1,14 @@
 ================================================
-= Requirement: Functionality of Driver
+= Requirement: log should display numbers correctly
 ================================================
-= Component: prototypeTest
+= Component: Deploy
 ================================================
-= Function: runTest
+= Function: log
+================================================
+= Script: LogTest()
 ================================================
 = Format:
 =
-= Test No. | Arg1 | Arg2 | Expected
+= Test No. | Arg1 | Arg2 | Arg3 | Expected
 ================================================
-1. |My friend {}|Sam||* My friend Sam
+3. |998877|||* 998877

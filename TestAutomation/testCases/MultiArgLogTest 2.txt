@@ -1,12 +1,12 @@
 ================================================
-= Requirement: log_time gives correct time in seconds
+= Requirement: The log function should be able to display multiple numbers correctly
 ================================================
-= Component: LoggingTimer
+= Component: Deploy
 ================================================
-= Function: log_time
+= Function: log
 ================================================
 = Format:
 =
-= Test No. | Arg1 | Expected
+= Test No. | Arg1 | Arg2 | Expected
 ================================================
-1. | 0.1 |* Time is: 0:0.1s
+2. |{} divided by {} is {}|10,2,5||* 10 divided by 2 is 5

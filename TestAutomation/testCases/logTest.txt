@@ -1,16 +1,14 @@
 ================================================
-= Requirement: Testing that the logger method formats the message correctly (single args)
+= Requirement: log should display nothing when given no arguments
 ================================================
 = Component: Deploy
 ================================================
 = Function: log
+================================================
+= Script: LogTest()
 ================================================
 = Format:
 =
 = Test No. | Arg1 | Arg2 | Arg3 | Expected
 ================================================
 1. ||||* 
-2. |The quick brown fox jumped over the lazy dog|||* The quick brown fox jumped over the lazy dog
-3. |998877|||* 998877
-4. |My friend {}|Sam||* My friend Sam
-5. |The total is ${}|23.50||* The total is $23.50

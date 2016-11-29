@@ -1,12 +1,12 @@
 ================================================
-= Requirement: log_time gives correct time in seconds
+= Requirement: The log_nostar method should be able to correctly display numbers
 ================================================
-= Component: LoggingTimer
+= Component: Deploy
 ================================================
-= Function: log_time
+= Function: log_nostar
 ================================================
 = Format:
 =
-= Test No. | Arg1 | Expected
+= Test No. | Arg1 | Arg2 | Arg3 | Expected
 ================================================
-1. | 0.1 |* Time is: 0:0.1s
+5. |The total is ${}|23.50||The total is $23.50

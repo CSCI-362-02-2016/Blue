@@ -1,5 +1,5 @@
 ================================================
-= Requirement: The log function should be able to handle multiple arguments
+= Requirement: The log function should be able to handle multiple empty spaces as formatting arguments
 ================================================
 = Component: Deploy
 ================================================
@@ -8,5 +8,5 @@
 = Format:
 =
 = Test No. | Arg1 | Arg2 | Expected
-================================================
-1. |My {} friend {}|good,Sam||* My good friend Sam
+================================================ 
+4. |This should have nothing{}{}|,||* This should have nothing

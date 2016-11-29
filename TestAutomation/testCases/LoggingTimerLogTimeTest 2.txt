@@ -1,5 +1,5 @@
 ================================================
-= Requirement: log_time gives correct time in seconds
+= Requirement: log_time handles fractions of seconds correctly
 ================================================
 = Component: LoggingTimer
 ================================================
@@ -9,4 +9,4 @@
 =
 = Test No. | Arg1 | Expected
 ================================================
-1. | 0.1 |* Time is: 0:0.1s
+2. | 0.3 |* Time is: 0:0.3s

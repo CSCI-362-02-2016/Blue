@@ -1,12 +1,12 @@
 ================================================
-= Requirement: Gives correct error message
+= Requirement: log_time formats multiple units correctly
 ================================================
-= Component: Cleanup
+= Component: LoggingTimer
 ================================================
-= Function: get_docker_hosts
+= Function: log_time
 ================================================
 = Format:
 =
-= Test No. | Expected
+= Test No. | Arg1 | Expected
 ================================================
-1. |DOCKER_HOSTS ENV variable missing
+6. | 1.1 |* Time is: 0:1.1s

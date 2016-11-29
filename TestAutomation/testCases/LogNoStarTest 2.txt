@@ -1,5 +1,5 @@
 ================================================
-= Requirement: The log no_star should display nothing when given no arguments
+= Requirement: The log_nostar method should be able to display a string correctly
 ================================================
 = Component: Deploy
 ================================================
@@ -9,4 +9,4 @@
 =
 = Test No. | Arg1 | Arg2 | Arg3 | Expected
 ================================================
-1. ||||
+2. |The quick brown fox jumped over the lazy dog|||The quick brown fox jumped over the lazy dog

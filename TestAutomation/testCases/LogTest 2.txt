@@ -1,12 +1,14 @@
 ================================================
-= Requirement: The log no_star should display nothing when given no arguments
+= Requirement: log should display strings correctly
 ================================================
 = Component: Deploy
 ================================================
-= Function: log_nostar
+= Function: log
+================================================
+= Script: LogTest()
 ================================================
 = Format:
 =
 = Test No. | Arg1 | Arg2 | Arg3 | Expected
 ================================================
-1. ||||
+2. |The quick brown fox jumped over the lazy dog|||* The quick brown fox jumped over the lazy dog

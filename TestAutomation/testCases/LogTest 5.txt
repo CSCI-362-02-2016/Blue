@@ -1,12 +1,14 @@
 ================================================
-= Requirement: The log no_star should display nothing when given no arguments
+= Requirement: log should be able to handle numbers as arguments
 ================================================
 = Component: Deploy
 ================================================
-= Function: log_nostar
+= Function: log
+================================================
+= Script: LogTest()
 ================================================
 = Format:
 =
 = Test No. | Arg1 | Arg2 | Arg3 | Expected
 ================================================
-1. ||||
+5. |The total is ${}|23.50||* The total is $23.50

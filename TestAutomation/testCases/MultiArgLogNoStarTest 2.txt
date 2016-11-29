@@ -1,12 +1,12 @@
 ================================================
-= Requirement: log_time gives correct time in seconds
+= Requirement: log_nostar should be able to handle multiple spaces, and display correctly
 ================================================
-= Component: LoggingTimer
+= Component: Deploy
 ================================================
-= Function: log_time
+= Function: log_nostar
 ================================================
 = Format:
 =
-= Test No. | Arg1 | Expected
+= Test No. | Arg1 | Arg2 | Expected
 ================================================
-1. | 0.1 |* Time is: 0:0.1s
+2. |This should have two spaces{}{}| , ||This should have two spaces  

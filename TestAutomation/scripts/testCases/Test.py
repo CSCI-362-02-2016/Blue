@@ -1,23 +1,23 @@
 from testCases import *
-
+import sys, os
 class Test:
 
     details = [
-    "###", "Test ID:", "", "###\n",
-    "###", "Requirement Tested:", "Functionality of driver", "###\n",
-    "###", "Component Tested:", "prototypeTest", "###\n",
-    "###", "Function Tested:", "runTest", "###\n",
-    "###", "Arguments:", "", "###\n",
-    "###", "Expected Result:", "True", "###\n",
-    "###", "Pass/Fail:", "", "###\n"
+    '<tr><td>', "Test ID:", "", "</td><tr>",
+    "<tr><td>", "Requirement Tested:", "Functionality of driver", "</td>",
+    "<td>", "Arguments:", "", "</td></tr>",
+    "<tr><td>", "Component Tested:", "prototypeTest", "</td>",
+    "<td>", "Expected Result:", "True", "</td></tr>",
+    "<tr><td>", "Function Tested:", "runTest", "</td>",
+    '<td sytle="color:green">', "Pass/Fail:", "", "</td></tr>"
     ]
 
     
     PASS_FAIL_INDEX = 26
-    EXPECTED_INDEX = 22
-    ARGUMENTS_INDEX = 18
-    FUNCTION_INDEX = 14
-    COMPONENT_INDEX = 10
+    EXPECTED_INDEX = 18
+    ARGUMENTS_INDEX = 10
+    FUNCTION_INDEX = 22
+    COMPONENT_INDEX = 14
     REQUIREMENT_INDEX = 6
     ID_INDEX = 2
 
@@ -34,27 +34,35 @@ class Test:
         fileStr = file.read()
         file.close()
         fileArray = fileStr.split("\n")
-        self.requirement = fileArray[1].split(":")[1].strip()
         self.component = fileArray[3].split(":")[1].strip()
         self.function = fileArray[5].split(":")[1].strip()
 
     def getParamList( self ):
-        file = open("../testCases/" + self.name + ".txt")
-        fileStr = file.read()
-        file.close()
-        fileArray = fileStr.split("\n")
         self.paramList = []
         self.expectedList = []
-        for i in range(len(fileArray) - 1):
-            if fileArray[i][0] != "=":
-                splt = fileArray[i].split("|")                    
-                self.paramList += [splt[1:-1]]
-                self.expectedList += [splt[-1]]
+        self.requirements = []
+        files = os.listdir("../testCases")
+        for fn in files:
+            if fn[:len(self.name)] == self.name:
+                file = open("../testCases/" + fn)
+                fileStr = file.read()
+                file.close()
+                if fileStr[-1] == '\n':
+                    fileStr = fileStr[:-1]
+                fileArray = fileStr.split("\n")
+                for i in range(len(fileArray)):
+                    if fileArray[i][0] != "=" :
+                        splt = fileArray[i].split("|")
+                        self.paramList += [splt[1:-1]]
+                        self.expectedList += [splt[-1]]
+                    elif i == 1:
+                        self.requirements += [fileArray[i][2:]]
 
-    def runTest( self, args, expected ):
+
+    def runTest( self, args, expected, requirement ):
         
         passFail = self.func( args, expected )
-        self.details
+        self.requirement = requirement
         self.details[self.PASS_FAIL_INDEX] = ('PASS' if passFail else 'FAIL')
         self.details[self.EXPECTED_INDEX] = str( expected )
         self.details[self.ARGUMENTS_INDEX] = ", ".join(args)
@@ -62,17 +70,16 @@ class Test:
         self.details[self.COMPONENT_INDEX] = self.component
         self.details[self.REQUIREMENT_INDEX] = self.requirement
         self.details[self.ID_INDEX] = str( self.getID() )
-        htmlFormat = "<div>===================================\n\n</div>"
+        htmlFormat = ""
         for i in range(0, len(self.details), 4):
-            htmlFormat +="<div>" + " ".join(self.details[i:i+4]) + "</div>"
-        htmlFormat += "<div>===================================\n\n</div>"
+            htmlFormat += " ".join(self.details[i:i+4])
         return [('.' if passFail else 'F'), htmlFormat]
 
     def runTests( self ):
         totalResult = ""
         totalDetail = ""
         for i in range(len(self.paramList)):
-            test = self.runTest(self.paramList[i], self.expectedList[i])
+            test = self.runTest(self.paramList[i], self.expectedList[i], self.requirements[i])
             totalResult += test[0]
             totalDetail += test[1]
             self.setID(self.getID() + 1)

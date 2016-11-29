@@ -1,5 +1,6 @@
 from Test import Test
-
+from sys import *
+from io import *
 from unisubs.deploy.deploy import *
 
 class CdToProjectRootTest(Test):
@@ -9,5 +10,10 @@ class CdToProjectRootTest(Test):
         Test.__init__( self )
         
     def func( self, args, expected ):
+        backup = sys.stdout
+        sys.stdout = BytesIO()
         deploy = Deploy()
-        return deploy.cd_to_project_root() == eval(expected)
+        deploy.cd_to_project_root()
+        value = sys.stdout
+        stdout = backup
+        return value.getvalue()[2:-1] == eval(expected)

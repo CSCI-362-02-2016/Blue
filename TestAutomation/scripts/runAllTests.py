@@ -1,19 +1,11 @@
 #!/usr/bin/env python3
 
-import sys, os
+import sys, os, webbrowser
 from testCases import *
 
 def driver( args ):
     
-    testObjects = [
-        LoggingTimerLogTimeTest(),
-        GetDockerHostsTest(),
-        CdToProjectRootTest(),
-        LogTest(),
-        MultiArgLogTest(),
-        LogNoStarTest(),
-        MultiArgLogNoStarTest()
-        ]
+    testObjects = []
     
     file = open("../testCases/testNames.txt", "r")
     fileStr = file.read()
@@ -22,35 +14,30 @@ def driver( args ):
     fileArray = fileStr.split("\n")
     file.close()
     
-    file = open("../temp/testOutput.html", "w")
+    file = open("../temp/testOutput.html", "wb")
     id = 0
-    tests = {}
 
     for i in range(len(fileArray)):
-        tests[fileArray[i]] = testObjects[i]
-
-    results = "<head>Simplified Results:<div>"
-    details = "<body>Detailed Results:"
-    
-    if len( args ) == 0:
-        for name, test in tests.items():
-            test.setID( id )
-            tempResults = test.runTests()
-            id = test.getID()
-            results += tempResults[0]
-            details += tempResults[1]
-    else:
-        tests[args[0]].setID(0)
-        tempResults = tests[args[0]].runTest(args[1:])
+        testObjects += [eval(fileArray[i])]
+    style = '<style type = "text/css"> table {width: 75%; border: 1px solid black; padding: 1px;} td {text-align: left; border: 1px solid black; padding: 10px;} th {text-align: left; padding: 10px;}</style>'
+    results = "Simplified Results:<div>"
+    details = '<body>Detailed Results: <table style = "border-collapse: collapse; width: 100%;">'
+    for test in testObjects:
+        test.setID( id )
+        tempResults = test.runTests()
+        id = test.getID()
         results += tempResults[0]
         details += tempResults[1]
 
     results += "\n</div></head>"
-    details += "</body>"
+    details += "</table></body>"
+    file.write(style)
     file.write(results + "\n")
     file.write("<br>\n</br>")
-    file.write(details + "\n")
+    file.write(details + "</html>")
     file.close()
+
+    webbrowser.open("file://" + os.path.abspath("..")[:-17] + "/temp/testOutput.html")
 
 if __name__ == '__main__':
     driver( sys.argv ) if sys.argv[0] != "runAllTests.py" else driver(sys.argv[1:])

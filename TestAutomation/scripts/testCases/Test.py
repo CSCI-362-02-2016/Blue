@@ -9,7 +9,7 @@ class Test:
     "<tr><td>", "Component Tested:", "prototypeTest", "</td>",
     "<td>", "Expected Result:", "True", "</td></tr>",
     "<tr><td>", "Function Tested:", "runTest", "</td>",
-    '<td sytle="color:green">', "Pass/Fail:", "", "</td></tr>"
+    "<td>", "Pass/Fail:", "", "</td></tr>"
     ]
 
     

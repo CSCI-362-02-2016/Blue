@@ -15,5 +15,4 @@ class LogTest(Test):
         log(args[0], args[1], args[2])
         value = sys.stdout
         sys.stdout = backup
-        print(value.getvalue())
         return value.getvalue()[:-1] == expected

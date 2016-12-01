@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<ul class="listing activity">
+  {% for record in records %}
+  <li>{% include "activity/record.html" %}</li>
+  {% endfor %}
+</ul>

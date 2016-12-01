@@ -1,0 +1,100 @@
+{% extends "new-base.html" %}
+{% load i18n teams_tags %}
+{% load url from future %}
+
+{% block html_attrs %}class="team"{% endblock %}
+
+{% block header %}
+{% team_projects team as projects %}
+<nav class="group">
+  <div class="burger">
+    <button class="menu-toggle-all"><span class="fa fa-bars"></span></button>
+  </div>
+  <ul>
+    <li>
+        <a href="{% url "teams:dashboard" team.slug %}">{% trans "Dashboard" %}</a>
+    </li>
+    {% for page in team|extra_pages:request.user %}
+    <li>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+    </li>
+    {% endfor %}
+    <li>
+        <a href="{% url "teams:videos" team.slug %}">{% trans "Videos" %}</a>
+    </li>
+    <li>
+        <a href="{% url "teams:members" team.slug %}">{% trans "Members" %}</a>
+    </li>
+    <li>
+        <a href="{% url "teams:activity" team.slug %}">{% trans "Activity" %}</a>
+    </li>
+    {% if projects %}
+    <li>
+      <a href="#" class="menu-toggle">{% trans "Projects" %}</a>
+      <ul class="dropdown">
+        {% for project in projects %}
+        <li>
+        <a href="{{ project.get_absolute_url }}">{{ project }} <span class="count">{{ project.videos_count }}</span></a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
+    {% if team|can_view_settings_tab:user %}
+    <li>
+      <a href="#" class="menu-toggle">{% trans "Settings" %}</a>
+      <ul class="dropdown">
+        <li>
+          <a href="{% url "teams:settings_basic" slug=team.slug %}">{% trans "Team Settings" %}</a>
+        </li>
+        <li>
+          <a href="{% url "teams:settings_messages" slug=team.slug %}">{% trans "Messages" %}</a>
+        </li>
+        <li>
+          <a href="{% url "teams:settings_workflows" slug=team.slug %}">{% trans "Workflow" %}</a>
+        </li>
+      {% for page in team|extra_settings_pages:request.user %}
+        <li>
+          <a href="{{ page.url }}">{{ page.title }}</a>
+        </li>
+        {% endfor %}
+        <li>
+          <a href="{% url "teams:settings_feeds" slug=team.slug %}">{% trans "Video Feeds" %}</a>
+        </li>
+        <li>
+          <a href="{% url "teams:settings_projects" slug=team.slug %}">{% trans "Projects" %}</a>
+        </li>
+        <li>
+          <a href="{% url "teams:settings_externalsites" slug=team.slug %}">{% trans "Integrations" %}</a>
+        </li>
+      </ul>
+    </li>
+    {% endif %}
+  </ul>
+  <ul class="right">
+    <li>
+      <a class="home" href="{% url "home" %}"><img src="{{ STATIC_URL }}images/amara-o.png" /></a>
+    </li>
+    <li class="user">{% include "new-user-menu.html" %}</li>
+  </ul>
+</nav>
+{% block banner %}
+<div class="banner">
+  <div class="content group">
+    {% if team.logo %}
+    <img class="logo" alt="{{ team }} logo" src="{{ MEDIA_URL }}{{ team.logo }}"/>
+    {% else %}
+    <h1>{{ team }}</h1>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% endblock %}
+
+{% block page-controls %}
+<ul>
+  <li><strong>Team Admin</strong></li>
+  <li><a href="{% url "admin:teams_team_change" team.pk %}">{% trans 'Edit team' %}</a></li>
+  <li><a href="{% url "teams:video-durations" team.slug %}">Video Durations</a></li>
+</ul>
+{% endblock %}

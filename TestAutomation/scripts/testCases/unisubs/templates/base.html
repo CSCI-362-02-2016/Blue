@@ -1,0 +1,184 @@
+{% load i18n amara_cache announcement_tags messages_tags profiles_tags media_bundle auth_tags %}
+{% load url from future %}
+
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+<!DOCTYPE html>
+<html {% if LANGUAGE_BIDI %}dir="rtl"{% endif %} xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en" lang="en" {% block html_attrs %}{% endblock %} class="base">
+
+<head>
+    <title>{% block title %}Amara - {% trans 'Caption, translate, subtitle and transcribe video.' %}{% endblock %}</title>
+
+    <meta name="description" content="The easiest way to caption and translate any video, with crowdsourcing, volunteers, and professional services." />
+
+    <meta charset="utf-8" />
+    {% if not current_site.name == 'amara-production' %}
+        <meta name="robots" content="noindex, nofollow"/>
+    {% endif %}
+    {% block opengraph-head %}
+        <meta property="fb:admins" content="539835590"/>
+    {% endblock  %}
+
+    <link rel="shortcut icon" type="image/png" href="{{ STATIC_URL }}images/favicon.png" />
+    <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.png" />
+    {% block css %}{% media_bundle "base.css" %}{% endblock %}
+
+    <!--[if IE]>
+        <style type="text/css"> .group { display: block; zoom: 1; } </style>
+    <![endif]-->
+    <!--[if gte IE 8]>
+        {% media_bundle "ie8.css" %}
+    <![endif]-->
+    <!--[if IE 8]>
+        <style> .notIE { display: none !important ; } </style>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href='//fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'>
+    {% media_bundle "site.js" %}
+    {% js_i18n_catalog %}
+    <script src="{% url "profiles:rpc_api" %}" type="text/javascript"></script>
+    <script type="text/javascript" src='{% url "embedder_iframe" %}'>
+    </script>
+    {% block scripts %}{% endblock %}
+    <script type="text/javascript">
+        window.STATIC_URL = '{{ STATIC_URL }}';
+        {% block oldmodal %}
+            window.OLD_MODAL = true;
+        {% endblock %}
+    </script>
+</head>
+
+<body {% block body_attrs %}{% endblock %}>
+    {% csrf_token %}
+    {% announcement %}
+    {% if user.is_authenticated %}
+        {% messages %}
+        {% block email_confirmation_block %}
+            {% email_confirmation_notification %}
+        {% endblock %}
+    {% endif %}
+    {% require_email_dialog %}
+
+
+    <div class="help-tab">
+      <a target="_blank" href="http://support.amara.org/support/solutions">{% trans 'Get Help' %}</a>
+    </div>
+    <div id="main_bar">
+      <div id="bar_wrap" class="clearfix">
+        <a href="/"><img class="navbar-brand" src="{{ STATIC_URL }}images/amara-o.png" /></a>
+        <div id="bar_right">
+          <ul id="bar_menu" class="clearfix">
+            <li id="nav_submit"><a href="{% url "videos:create" %}">{% trans 'Subtitle Video' %}</a></li>
+            <li><a href="/community">{% trans "Community" %}</a></li>
+            <li><a id="proamara-link" href="//pro.amara.org">{% trans "Professional Solutions" %}</a></li>
+            <li>
+              <a class="navbar-search" href="/videos/watch/">
+                <img alt="Search" src="{{ STATIC_URL }}images/glyphicons_027_search-light.png">
+              </a>
+            </li>
+            {% include "profiles/_user_menu.html" %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Temporary until we change the banner design -->
+    <div id="lang_bar">
+    </div>
+
+    <!-- empty block for banner above page content -->
+    <div>
+    {% block amara-pro  %} {% endblock %}
+    </div>
+    <div class="content container_12 wrapper clearfix">
+        {% block youtube_prompt %}
+        {% if request|show_youtube_prompt and not hide_prompt %}
+            <div id="youtube-prompt">
+                <img src="{{ STATIC_URL }}images/partners/youtube.png" alt="YouTube"/>
+                <h2>{% trans "Got a YouTube account?" %}</h2>
+                <p>{% trans "New: enable viewer-created translations and captions on your YouTube channel!" %}</p>
+                <ul>
+                    <li><a href="{% url "profiles:account" %}?prompt=true" class="proceed">{% trans "Connect to YouTube" %}</a></li>
+                    <li><a href="#" class="hide">{% trans "No thanks" %}</a></li>
+                </ul>
+            </div>
+        {% endif %}
+        {% endblock %}
+
+        {% if messages %}
+
+            <div id="messages">
+                {% for message in messages %}
+                    <h2 class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message|safe }}</h2>
+                {% endfor %}
+                <a href="#" id="closeBut" style="display: block; float: right;">x</a>
+            </div>
+        {% endif %}
+        {% block main_content %}{% endblock %}
+    </div>
+
+    <div id="footer">
+      <div id="footer-base">
+        <div class="container">
+          <div class="row">
+            <div id="footer-nav" class="col-sm-7 col-sm-push-5">
+              <span>
+                <ul>
+                  <li><strong>Amara</strong></li>
+                  <li><a href="http://about.amara.org/">{% trans 'Blog' %}</a></li>
+                  <li><a href="http://support.amara.org/solution/categories/13504">{% trans 'Help' %}</a></li>
+                  <li><a href="http://support.amara.org/support/solutions/articles/35517--i-have-a-non-technical-question-about">{% trans 'Contact' %}</a></li>
+                </ul>
+                <ul>
+                  <li><strong>{% trans 'Videos' %}</strong></li>
+                  <li><a href="/search/#/?q=">{% trans 'Search' %}</a></li>
+                  <li><a href="/videos/watch/">{% trans 'Browse' %}</a></li>
+                  <li><a href="/videos/watch/featured/">{% trans 'Featured' %}</a></li>
+                </ul>
+                <ul>
+                  <li><strong>{% trans 'More' %}</strong></li>
+                  <li><a href="//twitter.com/AmaraSubs/">Twitter</a></li>
+                  <li><a href="//facebook.com/Amara.Community">Facebook</a></li>
+                </ul>
+              </span>
+            </div>
+            <div id="footer-terms" class="col-sm-5 col-sm-pull-7">
+              <a href="//amara.org"><img src="{{ STATIC_URL }}images/amara-logotype.png" alt="Amara's green circle logotype" /></a>
+              <ul>
+                <li><a href="//about.amara.org/tos/">{% trans 'Terms' %}</a></li>
+                <li><a href="//pculture.org/pcf/websites-privacy/">{% trans 'Privacy' %}</a></li>
+                <li><a href="/security">{% trans 'Security' %}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if user.is_staff %}
+        <div id="admin_controls">
+            <ul id="site_controls">
+                {% if user.is_staff %}
+                    <li><a target="_blank" href="{% url "admin:index" %}">{% trans 'Admin' %}</a></li>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <li><a target="_blank" href="https://logs.amara.org">{% trans 'Amara Logs' %}</a></li>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <li><a target="_blank" href="{% url "auth:login_trap" %}">{% trans 'Impersonate' %}</a></li>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <li><a target="_blank" href="{% url "billing" %}">{% trans 'Billing' %}</a></li>
+                {% endif %}
+                <li><a href="https://github.com/pculture/unisubs/commit/{{ LAST_COMMIT_GUID }}" title="{{ LAST_COMMIT_GUID }}">Github</a></li>
+            </ul>
+            {% block page_controls %}{% endblock %}
+        </div>
+    {% endif %}
+    {% block bottom_scripts %}{% endblock %}
+
+    {% include "_analytics.html" %}
+
+</body>
+</html>

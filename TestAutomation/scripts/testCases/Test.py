@@ -56,7 +56,7 @@ class Test:
                         self.paramList += [splt[1:-1]]
                         self.expectedList += [splt[-1]]
                     elif i == 1:
-                        self.requirements += [fileArray[i][2:]]
+                        self.requirements += [fileArray[i][15:]]
 
 
     def runTest( self, args, expected, requirement ):

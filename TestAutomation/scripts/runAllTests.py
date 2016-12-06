@@ -6,13 +6,12 @@ from testCases import *
 def driver( args ):
     
     testObjects = []
-    
-    file = open("../testCases/testNames.txt", "r")
-    fileStr = file.read()
-    if fileStr[-1] == "\n":
-        fileStr = fileStr[:-1]
-    fileArray = fileStr.split("\n")
-    file.close()
+    fileArray = []
+    files = os.listdir("../testCases")
+    for fn in files:
+        if fn[-4:] == ".txt":
+            if not fn[-5].isdigit():
+                fileArray += [fn.split('.')[0]+"()"]
     
     file = open("../temp/testOutput.html", "wb")
     id = 0

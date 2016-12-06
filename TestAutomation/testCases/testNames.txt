@@ -1,6 +1,0 @@
-LoggingTimerLogTimeTest()
-CdToProjectRootTest()
-LogTest()
-MultiArgLogTest()
-LogNoStarTest()
-MultiArgLogNoStarTest()

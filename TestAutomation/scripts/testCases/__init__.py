@@ -1,4 +1,3 @@
-from prototypeTest import *
 from LoggingTimerLogTimeTest import *
 from CdToProjectRootTest import *
 from LogTest import *

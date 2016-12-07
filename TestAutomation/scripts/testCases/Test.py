@@ -30,7 +30,7 @@ class Test:
         return self.details
 
     def setDetails( self ):
-        file = open("../testCases/" + self.name + ".txt")
+        file = open(os.path.realpath("..") + "/TestAutomation/testCases/" + self.name + ".txt")
         fileStr = file.read()
         file.close()
         fileArray = fileStr.split("\n")
@@ -41,10 +41,10 @@ class Test:
         self.paramList = []
         self.expectedList = []
         self.requirements = []
-        files = os.listdir("../testCases")
+        files = os.listdir(os.path.realpath("..") + "/TestAutomation/testCases")
         for fn in files:
             if fn[:len(self.name)] == self.name:
-                file = open("../testCases/" + fn)
+                file = open(os.path.realpath("..") + "/TestAutomation/testCases/" + fn)
                 fileStr = file.read()
                 file.close()
                 if fileStr[-1] == '\n':

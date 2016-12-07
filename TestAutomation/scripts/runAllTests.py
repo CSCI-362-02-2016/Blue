@@ -7,13 +7,13 @@ def driver( args ):
     
     testObjects = []
     fileArray = []
-    files = os.listdir("../testCases")
+    files = os.listdir(os.path.realpath("..") + "/TestAutomation/testCases")
     for fn in files:
         if fn[-4:] == ".txt":
             if not fn[-5].isdigit():
                 fileArray += [fn.split('.')[0]+"()"]
     
-    file = open("../temp/testOutput.html", "wb")
+    file = open(os.path.realpath("..") + "/TestAutomation/temp/testOutput.html", "wb")
     id = 0
 
     for i in range(len(fileArray)):

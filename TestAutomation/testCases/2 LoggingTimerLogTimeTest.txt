@@ -1,0 +1,14 @@
+================================================
+=1. test number or ID
+=2. requirement being tested
+=3. component being tested
+=4. method being tested
+=5. test input(s) including command-line argument(s)
+=6. expected outcome(s)
+================================================
+2
+log_time handles fractions of seconds correctly
+LoggingTimer
+log_time
+0.1
+* Time is: 0:0.1s

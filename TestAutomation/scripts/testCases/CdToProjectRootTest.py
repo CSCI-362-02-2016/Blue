@@ -16,4 +16,4 @@ class CdToProjectRootTest(Test):
         deploy.cd_to_project_root()
         value = sys.stdout
         sys.stdout = backup
-        return value.getvalue()[2:-1] == eval(expected)
+        return value.getvalue()[:8] + ".." + value.getvalue()[-27:-1] == expected

@@ -8,26 +8,23 @@ def driver( args ):
     testObjects = []
     fileArray = []
     files = os.listdir(os.path.realpath("..") + "/TestAutomation/testCases")
+    print(files)
     for fn in files:
         if fn[-4:] == ".txt":
-            if not fn[-5].isdigit():
-                fileArray += [fn.split('.')[0]+"()"]
+            if not fn.split(' ')[1][:-4] + "()" in fileArray:
+                fileArray += [fn.split(' ')[1][:-4] +"()"]
     
     file = open(os.path.realpath("..") + "/TestAutomation/temp/testOutput.html", "wb")
-    id = 0
-
+    print(fileArray)
     for i in range(len(fileArray)):
         testObjects += [eval(fileArray[i])]
     style = '<style type = "text/css"> table {width: 75%; border: 1px solid black; padding: 1px;} td {text-align: left; border: 1px solid black; padding: 10px;} th {text-align: left; padding: 10px;}</style>'
     results = "Simplified Results:<div>"
     details = '<body>Detailed Results: <table style = "border-collapse: collapse; width: 100%;">'
     for test in testObjects:
-        test.setID( id )
         tempResults = test.runTests()
-        id = test.getID()
         results += tempResults[0]
         details += tempResults[1]
-
     results += "\n</div></head>"
     details += "</table></body>"
     file.write(style)

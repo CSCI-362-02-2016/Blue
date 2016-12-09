@@ -30,36 +30,37 @@ class Test:
         return self.details
 
     def setDetails( self ):
-        file = open(os.path.realpath("..") + "/TestAutomation/testCases/" + self.name + ".txt")
+        files = os.listdir(os.path.realpath("..") + "/TestAutomation/testCases/")
+        for fn in files:
+            if fn[-4:] == ".txt" and fn.split(" ")[1][:-4] == self.name:
+                file = open(os.path.realpath("..") + "/TestAutomation/testCases/" + fn)
+                break
         fileStr = file.read()
         file.close()
         fileArray = fileStr.split("\n")
-        self.component = fileArray[3].split(":")[1].strip()
-        self.function = fileArray[5].split(":")[1].strip()
+        self.component = fileArray[10].strip()
+        self.function = fileArray[11].strip()
 
     def getParamList( self ):
         self.paramList = []
         self.expectedList = []
         self.requirements = []
+        self.ids = []
         files = os.listdir(os.path.realpath("..") + "/TestAutomation/testCases")
         for fn in files:
-            if fn[:len(self.name)] == self.name:
+            if fn[-4:] == ".txt" and fn.split(" ")[1][:-4] == self.name:
                 file = open(os.path.realpath("..") + "/TestAutomation/testCases/" + fn)
                 fileStr = file.read()
                 file.close()
                 if fileStr[-1] == '\n':
                     fileStr = fileStr[:-1]
                 fileArray = fileStr.split("\n")
-                for i in range(len(fileArray)):
-                    if fileArray[i][0] != "=" :
-                        splt = fileArray[i].split("|")
-                        self.paramList += [splt[1:-1]]
-                        self.expectedList += [splt[-1]]
-                    elif i == 1:
-                        self.requirements += [fileArray[i][15:]]
+                self.ids += [fileArray[8]]
+                self.requirements += [fileArray[9]]
+                self.expectedList += [fileArray[13]]
+                self.paramList += [fileArray[12].split(",")]                    
 
-
-    def runTest( self, args, expected, requirement ):
+    def runTest( self, id, args, expected, requirement ):
         
         passFail = self.func( args, expected )
         self.requirement = requirement
@@ -69,7 +70,7 @@ class Test:
         self.details[self.FUNCTION_INDEX] = self.function
         self.details[self.COMPONENT_INDEX] = self.component
         self.details[self.REQUIREMENT_INDEX] = self.requirement
-        self.details[self.ID_INDEX] = str( self.getID() )
+        self.details[self.ID_INDEX] = str( id )
         htmlFormat = ""
         for i in range(0, len(self.details), 4):
             htmlFormat += " ".join(self.details[i:i+4])
@@ -79,20 +80,13 @@ class Test:
         totalResult = ""
         totalDetail = ""
         for i in range(len(self.paramList)):
-            test = self.runTest(self.paramList[i], self.expectedList[i], self.requirements[i])
+            test = self.runTest(self.ids[i], self.paramList[i], self.expectedList[i], self.requirements[i])
             totalResult += test[0]
             totalDetail += test[1]
-            self.setID(self.getID() + 1)
         return [totalResult, totalDetail]
 
     def func( self, args, expected ):
         pass
-
-    def setID( self, id ):
-        self.id = id
-
-    def getID( self ):
-        return self.id
 
     def report( self ):
         return self.report

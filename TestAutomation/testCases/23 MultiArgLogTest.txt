@@ -1,0 +1,14 @@
+================================================
+=1. test number or ID
+=2. requirement being tested
+=3. component being tested
+=4. method being tested
+=5. test input(s) including command-line argument(s)
+=6. expected outcome(s)
+================================================
+23
+The log function should be able to display multiple numbers correctly
+Deploy
+log
+This should have two spaces{}{}, | ,
+* This should have two spaces  

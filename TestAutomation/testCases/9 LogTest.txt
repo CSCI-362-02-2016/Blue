@@ -1,0 +1,14 @@
+================================================
+=1. test number or ID
+=2. requirement being tested
+=3. component being tested
+=4. method being tested
+=5. test input(s) including command-line argument(s)
+=6. expected outcome(s)
+================================================
+9
+log should display strings correctly
+Deploy
+log
+The quick brown fox jumped over the lazy dog,,,
+* The quick brown fox jumped over the lazy dog

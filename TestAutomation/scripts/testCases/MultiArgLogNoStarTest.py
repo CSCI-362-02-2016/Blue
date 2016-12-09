@@ -12,7 +12,7 @@ class MultiArgLogNoStarTest(Test):
     def func( self, args, expected ):
         backup = sys.stdout
         sys.stdout = BytesIO()
-        x = args[1].split(",")
+        x = args[1].split("|")
         tuple_args = tuple(x)
         self.applylast(log_nostar, args[0], tuple_args, args[2])
         value = sys.stdout

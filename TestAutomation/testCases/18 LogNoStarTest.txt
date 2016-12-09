@@ -6,7 +6,7 @@
 =5. test input(s) including command-line argument(s)
 =6. expected outcome(s)
 ================================================
-11
+18
 The log no_star should display nothing when given no arguments
 Deploy
 log_nostar

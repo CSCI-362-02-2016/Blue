@@ -6,7 +6,7 @@
 =5. test input(s) including command-line argument(s)
 =6. expected outcome(s)
 ================================================
-2
+7
 log_time must format multiple digit numbers correctly
 LoggingTimer
 log_time

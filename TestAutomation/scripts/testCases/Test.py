@@ -3,12 +3,12 @@ import sys, os
 class Test:
 
     details = [
-    '<tr><td>', "Test ID:", "", "</td><tr>",
-    "<tr><td>", "Requirement Tested:", "Functionality of driver", "</td>",
-    "<td>", "Arguments:", "", "</td></tr>",
-    "<tr><td>", "Component Tested:", "prototypeTest", "</td>",
-    "<td>", "Expected Result:", "True", "</td></tr>",
-    "<tr><td>", "Function Tested:", "runTest", "</td>",
+    '<tr><td>', "Test ID:", "", "</td>",
+    "<td>", "Requirement Tested:", "Functionality of driver", "</td>",
+    "<td>", "Arguments:", "", "</td>",
+    "<td>", "Component Tested:", "prototypeTest", "</td>",
+    "<td>", "Expected Result:", "True", "</td>",
+    "<td>", "Function Tested:", "runTest", "</td>",
     "<td>", "Pass/Fail:", "", "</td></tr>"
     ]
 
@@ -30,7 +30,7 @@ class Test:
         return self.details
 
     def setDetails( self ):
-        files = os.listdir(os.path.realpath("..") + "/TestAutomation/testCases/")
+        files = sorted(os.listdir(os.path.realpath("..") + "/TestAutomation/testCases/"), key=self.getTestNum)
         for fn in files:
             if fn[-4:] == ".txt" and fn.split(" ")[1][:-4] == self.name:
                 file = open(os.path.realpath("..") + "/TestAutomation/testCases/" + fn)
@@ -46,7 +46,7 @@ class Test:
         self.expectedList = []
         self.requirements = []
         self.ids = []
-        files = os.listdir(os.path.realpath("..") + "/TestAutomation/testCases")
+        files = sorted(os.listdir(os.path.realpath("..") + "/TestAutomation/testCases"), key=self.getTestNum)
         for fn in files:
             if fn[-4:] == ".txt" and fn.split(" ")[1][:-4] == self.name:
                 file = open(os.path.realpath("..") + "/TestAutomation/testCases/" + fn)
@@ -91,3 +91,5 @@ class Test:
     def report( self ):
         return self.report
 
+    def getTestNum( self, filename ):
+        return int(eval( filename.split(" ")[0] )) if filename[-4:] == ".txt" else 10000

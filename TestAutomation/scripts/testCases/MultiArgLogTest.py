@@ -17,7 +17,8 @@ class MultiArgLogTest(Test):
         self.applylast(log, args[0], tuple_args, args[2])
         value = sys.stdout
         sys.stdout = backup
-        return value.getvalue()[:-1] == expected
+        actual = value.getvalue()[:-1] 
+        return actual == expected, actual
 
             
     def applylast(self, func, arg1, arglist, *literalargs):

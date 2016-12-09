@@ -4,19 +4,21 @@ class Test:
 
     details = [
     '<tr><td>', "Test ID:", "", "</td>",
-    "<td>", "Requirement Tested:", "Functionality of driver", "</td>",
+    "<td>", "Requirement Tested:", "", "</td>",
     "<td>", "Arguments:", "", "</td>",
-    "<td>", "Component Tested:", "prototypeTest", "</td>",
-    "<td>", "Expected Result:", "True", "</td>",
+    "<td>", "Component Tested:", "", "</td>",
+    "<td>", "Expected Result:", "", "</td>",
+    "<td>", "Actual Result:", "", "</td>",
     "<td>", "Function Tested:", "runTest", "</td>",
     "<td>", "Pass/Fail:", "", "</td></tr>"
     ]
 
     
-    PASS_FAIL_INDEX = 26
+    PASS_FAIL_INDEX = 30
     EXPECTED_INDEX = 18
     ARGUMENTS_INDEX = 10
-    FUNCTION_INDEX = 22
+    FUNCTION_INDEX = 26
+    ACTUAL_INDEX = 22
     COMPONENT_INDEX = 14
     REQUIREMENT_INDEX = 6
     ID_INDEX = 2
@@ -61,12 +63,12 @@ class Test:
                 self.paramList += [fileArray[12].split(",")]                    
 
     def runTest( self, id, args, expected, requirement ):
-        
-        passFail = self.func( args, expected )
+        passFail, actual = self.func( args, expected )
         self.requirement = requirement
         self.details[self.PASS_FAIL_INDEX] = ('PASS' if passFail else 'FAIL')
         self.details[self.EXPECTED_INDEX] = str( expected )
         self.details[self.ARGUMENTS_INDEX] = ", ".join(args)
+        self.details[self.ACTUAL_INDEX] = actual
         self.details[self.FUNCTION_INDEX] = self.function
         self.details[self.COMPONENT_INDEX] = self.component
         self.details[self.REQUIREMENT_INDEX] = self.requirement

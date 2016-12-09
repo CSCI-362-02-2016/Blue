@@ -18,4 +18,5 @@ class LoggingTimerLogTimeTest(Test):
         x.log_time("Time is", "")
         value = sys.stdout
         sys.stdout = backup
-        return value.getvalue()[:-1] == expected
+        actual = value.getvalue()[:-1] 
+        return actual == expected, actual
